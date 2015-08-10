@@ -62,11 +62,11 @@ public class Graficar {
                     texto += "G" + dato2.getPersonaje() + "->G" + dato1.getPersonaje() + ";\n";
                     miNodo = miNodo.getSiguiente();
                 }
-                Data d1 = Manejador.getInstancia().listaElementos.getPrimero().getDatos();
-                Data d2 = Manejador.getInstancia().listaElementos.getPrimero().getAnterior().getDatos();
-                System.out.println("Primero: " + d1.getPersonaje() + " - " + d2.getPersonaje());
-                texto += "G" + d1.getPersonaje() + "->G" + d2.getPersonaje() + ";\n";
-                texto += "G" + d2.getPersonaje() + "->G" + d1.getPersonaje() + ";\n";
+//                Data d1 = Manejador.getInstancia().listaElementos.getPrimero().getDatos();
+//                Data d2 = Manejador.getInstancia().listaElementos.getPrimero().getAnterior().getDatos();
+//                System.out.println("Primero: " + d1.getPersonaje() + " - " + d2.getPersonaje());
+//                texto += "G" + d1.getPersonaje() + "->G" + d2.getPersonaje() + ";\n";
+//                texto += "G" + d2.getPersonaje() + "->G" + d1.getPersonaje() + ";\n";
             }
         }
         texto += "}\n";

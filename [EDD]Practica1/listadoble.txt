@@ -1,0 +1,18 @@
+digraph grafica{
+rankdir = TB; 
+node [shape = record, style = filled, colorfill = seashell2]; 
+splines = line;
+subgraph cluster_L {
+node [shape = box style = filled];
+label = "LISTA DOBLE ELEMENTOS"; 
+color = red
+GMarioBross[label = "Personaje:MarioBross
+Tipo: Principal
+Cantidad: 1"]
+GVida[label = "Personaje:Vida
+Tipo: Item
+Cantidad: 55"]
+GMarioBross->GVida;
+GVida->GMarioBross;
+}
+}

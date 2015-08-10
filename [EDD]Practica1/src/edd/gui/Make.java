@@ -6,6 +6,12 @@
 
 package edd.gui;
 
+import edd.estructuras.Manejador;
+import edd.estructuras.NodoDoble;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
+import javax.swing.JLabel;
+
 /**
  *
  * @author Saul
@@ -17,6 +23,7 @@ public class Make extends javax.swing.JFrame {
      */
     public Make() {
         initComponents();
+        cargar();
     }
 
     /**
@@ -28,12 +35,117 @@ public class Make extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblPersonaje = new javax.swing.JLabel();
+        btnSiguiente = new javax.swing.JButton();
+        btnAnterior = new javax.swing.JButton();
+        pnlMake = new javax.swing.JPanel();
+        btnBack = new javax.swing.JButton();
+        cbElegidos = new javax.swing.JComboBox();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+        lblPersonaje.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/castillo.png"))); // NOI18N
+        lblPersonaje.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPersonajeMouseClicked(evt);
+            }
+        });
+        getContentPane().add(lblPersonaje);
+        lblPersonaje.setBounds(370, 20, 48, 48);
 
+        btnSiguiente.setText("Siguiente");
+        getContentPane().add(btnSiguiente);
+        btnSiguiente.setBounds(230, 20, 100, 23);
+
+        btnAnterior.setText("Anterior");
+        getContentPane().add(btnAnterior);
+        btnAnterior.setBounds(230, 50, 100, 23);
+
+        pnlMake.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pnlMake.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlMakeMouseClicked(evt);
+            }
+        });
+        pnlMake.setLayout(null);
+        getContentPane().add(pnlMake);
+        pnlMake.setBounds(20, 90, 192, 96);
+
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnBack);
+        btnBack.setBounds(370, 210, 55, 23);
+
+        cbElegidos.setModel(combo2);
+        cbElegidos.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbElegidosItemStateChanged(evt);
+            }
+        });
+        cbElegidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbElegidosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cbElegidos);
+        cbElegidos.setBounds(110, 30, 110, 20);
+
+        setSize(new java.awt.Dimension(464, 281));
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+    private Icon icono;
+    private void lblPersonajeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPersonajeMouseClicked
+        icono = lblPersonaje.getIcon();   
+    }//GEN-LAST:event_lblPersonajeMouseClicked
+
+    private void pnlMakeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMakeMouseClicked
+        System.out.println("En x = " + pnlMake.getMousePosition().x);
+        int z = pnlMake.getWidth() / 48;
+        for(int i = 0; i<z; i++){
+            int x = pnlMake.getMousePosition().x;
+            if(x >= (i*48) && x <=((i+1)*48)){
+                System.out.println("Que con posicion x = " + i*48);
+                int w =  pnlMake.getHeight() / 48;
+                int y = pnlMake.getMousePosition().y;
+                for(int j = 0; j<w; j++){
+                    if(y >= (j * 48) && y<= ((j + 1) * 48)){
+                        System.out.println("Posicion en y = " + j * 48);
+                        JLabel nuevo = new JLabel();
+                        nuevo.setIcon(icono);
+                        nuevo.setBounds(i*48, j*48, 48, 48);
+                        pnlMake.add(nuevo);
+                        pnlMake.repaint();
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_pnlMakeMouseClicked
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        new Principal().setVisible(true);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void cbElegidosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbElegidosItemStateChanged
+
+    }//GEN-LAST:event_cbElegidosItemStateChanged
+
+    private void cbElegidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbElegidosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbElegidosActionPerformed
+    private void cargar(){
+        NodoDoble aux = Manejador.getInstancia().listaElementos.getPrimero();
+        combo2.addElement(aux.getDatos().getPersonaje());
+        aux = aux.getSiguiente();
+        while(aux != Manejador.getInstancia().listaElementos.getPrimero()){
+            combo2.addElement(aux.getDatos().getPersonaje());
+            aux.getSiguiente();
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -68,7 +180,13 @@ public class Make extends javax.swing.JFrame {
             }
         });
     }
-
+    DefaultComboBoxModel combo2 = new DefaultComboBoxModel();
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAnterior;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnSiguiente;
+    private javax.swing.JComboBox cbElegidos;
+    private javax.swing.JLabel lblPersonaje;
+    private javax.swing.JPanel pnlMake;
     // End of variables declaration//GEN-END:variables
 }

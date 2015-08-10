@@ -46,6 +46,11 @@ public class Principal extends javax.swing.JFrame {
         btnLoad.setBounds(30, 130, 120, 45);
 
         btnMake.setText("MAKE IT");
+        btnMake.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMakeActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnMake);
         btnMake.setBounds(30, 190, 120, 45);
 
@@ -65,6 +70,11 @@ public class Principal extends javax.swing.JFrame {
         new Loads().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnLoadActionPerformed
+
+    private void btnMakeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakeActionPerformed
+        new Make().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnMakeActionPerformed
 
     /**
      * @param args the command line arguments

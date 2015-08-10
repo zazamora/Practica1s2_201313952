@@ -35,6 +35,7 @@ public class ListaDatos {
         listaObjetos.add(new Data("Koopa", "Tortuga que mata personajes.", 0, -1, "Enemigo", "koopa.png"));
         listaObjetos.add(new Data("Goomba", "Mostro que mate personajes", 0, -1, "Enemigo", "goomba.png"));
         listaObjetos.add(new Data("Ficha", "Incrementa puntos de personaje.", 0,0,"Item", "ficha.png"));
+        listaObjetos.add(new Data("Castillo", "Lugar de llegada de personaje.", 0,0,"Item", "castillo.png"));
     }
     public Data getDatos(String personaje){
         Data elemento = null;

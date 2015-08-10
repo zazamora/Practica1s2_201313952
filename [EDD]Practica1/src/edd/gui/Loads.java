@@ -54,6 +54,7 @@ public class Loads extends javax.swing.JFrame {
         cbLista = new javax.swing.JComboBox();
         cbElegidos = new javax.swing.JComboBox();
         btnEditar = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
 
         jLabel4.setText("jLabel4");
 
@@ -84,6 +85,7 @@ public class Loads extends javax.swing.JFrame {
         txtNombre.setBounds(360, 130, 80, 25);
 
         btnAcepta.setText("ACEPTAR");
+        btnAcepta.setEnabled(false);
         btnAcepta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAceptaActionPerformed(evt);
@@ -140,7 +142,17 @@ public class Loads extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnEditar);
-        btnEditar.setBounds(210, 70, 69, 23);
+        btnEditar.setBounds(189, 70, 110, 23);
+
+        btnSave.setText("Guardar");
+        btnSave.setEnabled(false);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSave);
+        btnSave.setBounds(401, 230, 80, 23);
 
         setSize(new java.awt.Dimension(509, 339));
         setLocationRelativeTo(null);
@@ -166,6 +178,7 @@ public class Loads extends javax.swing.JFrame {
     }//GEN-LAST:event_cbListaItemStateChanged
 
     private void btnAgregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregaActionPerformed
+        btnAcepta.setEnabled(true);
         if(cbLista.getSelectedItem().equals("MarioBross")){
             txtNombre.setEnabled(true);
             txtCantidad.setText("1");
@@ -182,6 +195,7 @@ public class Loads extends javax.swing.JFrame {
 
     private void btnAceptaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptaActionPerformed
         if(!txtCantidad.getText().trim().equals("")){
+            btnAcepta.setEnabled(false);
             Data dato = ListaDatos.getInstancia().getDatos(cbLista.getSelectedItem().toString());
             if(!txtNombre.getText().equals(""))dato.setNombre(txtNombre.getText());
             dato.setCantidad(Integer.parseInt(txtCantidad.getText()));
@@ -189,6 +203,7 @@ public class Loads extends javax.swing.JFrame {
             combo2.addElement(cbLista.getSelectedItem());
             //ListaDatos.getInstancia().getLista().remove(dato);
             combo.removeElement(cbLista.getSelectedItem());
+            limpiar();
         }else{
             javax.swing.JOptionPane.showMessageDialog(null, "Favor no dejar Cantida en blanco.");
         }
@@ -198,24 +213,44 @@ public class Loads extends javax.swing.JFrame {
     private void cbElegidosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbElegidosItemStateChanged
 
     }//GEN-LAST:event_cbElegidosItemStateChanged
-    private boolean cambio =  false;
+    
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        btnAcepta.setEnabled(false);
+        btnSave.setEnabled(true);
         for(Data elemento:ListaDatos.getInstancia().getLista()){
             if(cbElegidos.getSelectedItem().equals(elemento.getPersonaje())){
-                if(!elemento.getNombre().equals("")){
+                System.out.println("Personaje: " + elemento.getPersonaje());
+                if(elemento.getPersonaje().equals("MarioBross")){
                     txtNombre.setEnabled(true);
+                    txtNombre.setText(Manejador.getInstancia().buscar(elemento.getPersonaje()).getNombre());
                     txtCantidad.setEnabled(false);
+                }else{
+                    txtNombre.setEnabled(false);
+                    txtCantidad.setEnabled(true);
+                    txtNombre.setText("");
                 }
-                txtNombre.setText(Manejador.getInstancia().buscar(elemento.getPersonaje()).getNombre());
                 txtCantidad.setText(String.valueOf(Manejador.getInstancia().buscar(elemento.getPersonaje()).getCantidad()));
                 lblPersonaje.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/" + elemento.getImagen())));
             }
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        Data elemento = Manejador.getInstancia().buscar(cbElegidos.getSelectedItem().toString());
+        elemento.setNombre(txtNombre.getText());
+        elemento.setCantidad(Integer.parseInt(txtCantidad.getText()));
+        limpiar();
+        btnSave.setEnabled(false);
+    }//GEN-LAST:event_btnSaveActionPerformed
+
     /**
      * @param args the command line arguments
      */
+    private void limpiar(){
+        txtNombre.setText("");
+        txtCantidad.setText("");
+        lblPersonaje.setIcon(null);
+    }
     
     private void cargarDatos(){
         for(Data datos:ListaDatos.getInstancia().getLista()){
@@ -261,6 +296,7 @@ public class Loads extends javax.swing.JFrame {
     private javax.swing.JButton btnAgrega;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnFinish;
+    private javax.swing.JButton btnSave;
     private javax.swing.JComboBox cbElegidos;
     private javax.swing.JComboBox cbLista;
     private javax.swing.JLabel jLabel3;
