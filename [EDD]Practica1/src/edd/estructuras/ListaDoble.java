@@ -41,8 +41,8 @@ public class ListaDoble {
             fin = temp;
             fin.setAnterior(aux);
             aux.setSiguiente(fin);
-            fin.setSiguiente(inicio);
-            inicio.setAnterior(fin);
+//            fin.setSiguiente(inicio);
+//            inicio.setAnterior(fin);
         }
     }
     
@@ -67,21 +67,11 @@ public class ListaDoble {
         if(esVacio()){
             System.out.println("Lista Vacia.");
         }else{
-            if(aux.getSiguiente().getDatos().getPersonaje().equals(inicio.getDatos().getPersonaje())){
+            while(aux != null){
                 if(aux.getDatos().getPersonaje().equals(personaje))
-                    datos = aux.getDatos(); 
-            }else{
-                if(aux.getDatos().getPersonaje().equals(personaje))
-                    datos = aux.getDatos(); 
+                    datos = aux.getDatos();
                 aux = aux.getSiguiente();
-                while(aux != inicio){
-                    if(aux.getDatos().getPersonaje().equals(personaje))
-                        datos = aux.getDatos();
-                    aux = aux.getSiguiente();
-                }
             }
-            
-            
         }
         return datos;
     }

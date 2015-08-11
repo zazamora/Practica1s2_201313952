@@ -11,8 +11,16 @@ Tipo: Principal
 Cantidad: 1"]
 GVida[label = "Personaje:Vida
 Tipo: Item
-Cantidad: 55"]
+Cantidad: 20"]
 GMarioBross->GVida;
 GVida->GMarioBross;
+GVida[label = "Personaje:Vida
+Tipo: Item
+Cantidad: 20"]
+GPared[label = "Personaje:Pared
+Tipo: Item
+Cantidad: 80"]
+GVida->GPared;
+GPared->GVida;
 }
 }

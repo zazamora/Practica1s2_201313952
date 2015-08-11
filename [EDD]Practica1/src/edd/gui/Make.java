@@ -8,6 +8,7 @@ package edd.gui;
 
 import edd.estructuras.Manejador;
 import edd.estructuras.NodoDoble;
+import java.awt.Rectangle;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.JLabel;
@@ -40,7 +41,10 @@ public class Make extends javax.swing.JFrame {
         btnAnterior = new javax.swing.JButton();
         pnlMake = new javax.swing.JPanel();
         btnBack = new javax.swing.JButton();
-        cbElegidos = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        txtRestantes = new javax.swing.JTextField();
+        btnFila = new javax.swing.JButton();
+        btnColumna = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -52,15 +56,25 @@ public class Make extends javax.swing.JFrame {
             }
         });
         getContentPane().add(lblPersonaje);
-        lblPersonaje.setBounds(370, 20, 48, 48);
+        lblPersonaje.setBounds(310, 20, 48, 48);
 
         btnSiguiente.setText("Siguiente");
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguienteActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnSiguiente);
-        btnSiguiente.setBounds(230, 20, 100, 23);
+        btnSiguiente.setBounds(190, 20, 100, 23);
 
         btnAnterior.setText("Anterior");
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnAnterior);
-        btnAnterior.setBounds(230, 50, 100, 23);
+        btnAnterior.setBounds(190, 50, 100, 23);
 
         pnlMake.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         pnlMake.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -79,23 +93,35 @@ public class Make extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnBack);
-        btnBack.setBounds(370, 210, 55, 23);
+        btnBack.setBounds(450, 20, 80, 23);
 
-        cbElegidos.setModel(combo2);
-        cbElegidos.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbElegidosItemStateChanged(evt);
-            }
-        });
-        cbElegidos.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setText("Restantes:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(370, 20, 65, 14);
+
+        txtRestantes.setEnabled(false);
+        getContentPane().add(txtRestantes);
+        txtRestantes.setBounds(380, 40, 50, 20);
+
+        btnFila.setText("FILA +");
+        btnFila.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbElegidosActionPerformed(evt);
+                btnFilaActionPerformed(evt);
             }
         });
-        getContentPane().add(cbElegidos);
-        cbElegidos.setBounds(110, 30, 110, 20);
+        getContentPane().add(btnFila);
+        btnFila.setBounds(20, 20, 120, 23);
 
-        setSize(new java.awt.Dimension(464, 281));
+        btnColumna.setText("COLUMNA +");
+        btnColumna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnColumnaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnColumna);
+        btnColumna.setBounds(20, 50, 120, 23);
+
+        setSize(new java.awt.Dimension(561, 239));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     private Icon icono;
@@ -120,6 +146,7 @@ public class Make extends javax.swing.JFrame {
                         nuevo.setBounds(i*48, j*48, 48, 48);
                         pnlMake.add(nuevo);
                         pnlMake.repaint();
+                        aux.getDatos().setCantidad(aux.getDatos().getCantidad() - 1);
                     }
                 }
             }
@@ -130,21 +157,34 @@ public class Make extends javax.swing.JFrame {
         new Principal().setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void cbElegidosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbElegidosItemStateChanged
-
-    }//GEN-LAST:event_cbElegidosItemStateChanged
-
-    private void cbElegidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbElegidosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbElegidosActionPerformed
-    private void cargar(){
-        NodoDoble aux = Manejador.getInstancia().listaElementos.getPrimero();
-        combo2.addElement(aux.getDatos().getPersonaje());
-        aux = aux.getSiguiente();
-        while(aux != Manejador.getInstancia().listaElementos.getPrimero()){
-            combo2.addElement(aux.getDatos().getPersonaje());
-            aux.getSiguiente();
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+        if(aux.getSiguiente() != null){
+            aux = aux.getSiguiente();
+            lblPersonaje.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/" + aux.getDatos().getImagen())));
+            txtRestantes.setText(String.valueOf(aux.getDatos().getCantidad()));
         }
+    }//GEN-LAST:event_btnSiguienteActionPerformed
+
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        if(aux.getAnterior() != null){
+            aux = aux.getAnterior();
+            lblPersonaje.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/" + aux.getDatos().getImagen())));
+            txtRestantes.setText(String.valueOf(aux.getDatos().getCantidad()));
+        }
+    }//GEN-LAST:event_btnAnteriorActionPerformed
+
+    private void btnFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilaActionPerformed
+        pnlMake.setBounds(pnlMake.getX(), pnlMake.getY(), pnlMake.getWidth(), pnlMake.getHeight() + 48);
+        
+    }//GEN-LAST:event_btnFilaActionPerformed
+
+    private void btnColumnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColumnaActionPerformed
+        pnlMake.setBounds(pnlMake.getX(), pnlMake.getY(), pnlMake.getWidth() + 48, pnlMake.getHeight());
+    }//GEN-LAST:event_btnColumnaActionPerformed
+    private void cargar(){
+        aux = Manejador.getInstancia().listaElementos.getPrimero();
+        lblPersonaje.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/" + aux.getDatos().getImagen())));
+        txtRestantes.setText(String.valueOf(aux.getDatos().getCantidad()));
     }
     /**
      * @param args the command line arguments
@@ -180,13 +220,16 @@ public class Make extends javax.swing.JFrame {
             }
         });
     }
-    DefaultComboBoxModel combo2 = new DefaultComboBoxModel();
+    private NodoDoble aux = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnterior;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnColumna;
+    private javax.swing.JButton btnFila;
     private javax.swing.JButton btnSiguiente;
-    private javax.swing.JComboBox cbElegidos;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblPersonaje;
     private javax.swing.JPanel pnlMake;
+    private javax.swing.JTextField txtRestantes;
     // End of variables declaration//GEN-END:variables
 }

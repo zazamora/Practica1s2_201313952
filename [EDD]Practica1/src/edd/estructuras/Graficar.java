@@ -53,7 +53,7 @@ public class Graficar {
             if(miNodo.getSiguiente() == null){
                 texto += "G" + miNodo.getDatos().getPersonaje() + "[label=\"Personaje:" + miNodo.getDatos().getPersonaje() + "\n Tipo: " + miNodo.getDatos().getTipo() + "\nCantidad: " + miNodo.getDatos().getCantidad() + "\"" + "]\n";
             }else{
-                while(miNodo.getSiguiente() != Manejador.getInstancia().listaElementos.getPrimero()){
+                while(miNodo.getSiguiente() != null){
                     Data dato1 = miNodo.getDatos();
                     Data dato2 = miNodo.getSiguiente().getDatos();
                     texto += "G" + dato1.getPersonaje() + "[label = \"Personaje:" + dato1.getPersonaje() + "\nTipo: " + dato1.getTipo() + "\nCantidad: " + dato1.getCantidad() + "\"" + "]\n";
